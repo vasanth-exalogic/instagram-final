@@ -9,7 +9,11 @@
     <br><br>
     <div class="Instagram-card">
       <div class="Instagram-card-header">
-        <%= image_tag(@user.dp, class: "Instagram-card-user-image")%>
+        <% if @user.dp.attached? %>
+          <%= image_tag(@user.dp, class: "Instagram-card-user-image")%>
+          <% else %>
+  					<%= image_tag("https://image.flaticon.com/icons/png/512/64/64572.png", class: "Instagram-card-user-image") %>
+  				<% end %>
         <a class="Instagram-card-user-name" href="<%= profile_path(@user.username) %>"> <%= @user.username %> </a>
         <div class="Instagram-card-time">
           <% diff = Time.now - post.created_at.in_time_zone("Chennai") %>

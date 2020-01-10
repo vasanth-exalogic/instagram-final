@@ -20,7 +20,11 @@
 <% if user.id != current_user.id %>
 <br>
   <div class="card">
-    <%= link_to image_tag(user.dp, style: 'width:100%;'), profile_path(user.username) %>
+    <% if @user.dp.attached? %>
+      <%= link_to image_tag(user.dp, style: 'width:100%;'), profile_path(user.username) %>
+      <% else %>
+        <%= image_tag("https://image.flaticon.com/icons/png/512/64/64572.png", style: 'width:100%;') %>
+      <% end %>
     <div class="container">
       <h4><b><a href="#"><%= user.username%></a></b></h4>
       <p><%= user.bio%></p>
