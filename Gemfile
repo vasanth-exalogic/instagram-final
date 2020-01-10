@@ -49,7 +49,7 @@ group :test do
   gem 'webdrivers'
 end
 
-group :developement do
+group :development do
   gem 'sqlite3', '~> 1.4'
 end
 
