@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   get '/unlike1/:id' => 'like#destroy1', as: 'unlike1'
 
   post '/comment/:id' => 'comments#create', as: 'comment'
+
+  get '/find/friends' => 'home#find', as:'find_friends'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

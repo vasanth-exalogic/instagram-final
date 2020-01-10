@@ -40,6 +40,10 @@ class HomeController < ApplicationController
     @comments = @post.comments.select("message,user_id,updated_at").order("updated_at ASC")
   end
 
+  def find
+    @users = User.all
+  end
+
   private
 
   def post_params
