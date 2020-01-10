@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Insta</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="inner-header">
+        <div class="logo-container">
+          <a href="/"><i class="fa fa-instagram"></i></a>
+        </div>
+        <ul class="navigation">
+            <a href="#"><li><i class="fa fa-user-plus"></i></li></a>
+            <a href="/posts/upload"><li><i class="fa fa-upload"></i></li></a>
+            <%= link_to profile_path(current_user.username) do %>
+              <% if current_user.dp.attached? %>
+                <li><%= image_tag(current_user.dp, class: 'profile-icon') %></li>
+              <% else %>
+                <li><%= image_tag("https://image.flaticon.com/icons/png/512/64/64572.png", class: 'profile-icon') %></li>
+              <% end %>
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete, data: {confirm: "Are you sure?"} do %>
+              <li><i class="fa fa-sign-out"></i></li>
+            <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="below">
+        <%= yield %>
+    </div>
+  </body>
+</html>
+<style media="screen">
+  body{
+    background-color: #e6e6e6;
+  }
+  .below{
+    background-color: #d9d9d9;
+    margin: 0 auto;
+    width: 700px;
+    min-height: 87vh;
+  }
+  .profile-icon{
+    padding-top: 2px;
+    width: 35px;
+    height: 35px;
+    crop: stretch;
+    border-radius: 50%;
+  }
+  *{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+  }
+  .header a{
+    color: white;
+  }
+  .header{
+    width: 100%;
+    height: 13vh;
+    background-color: #4d4d4d;
+    display: block;
+  }
+  .inner-header{
+    width: 850px;
+    height: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+  .logo-container{
+    height: 100%;
+    display: table;
+    float: left;
+  }
+  .logo-container a{
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    font-size: 50px;
+  }
+  .navigation{
+    float: right;
+    height: 100%;
+  }
+  .navigation a{
+    height: 100%;
+    display: table;
+    float: left;
+    padding: 0 15px;
+    font-size: 35px;
+  }
+  .navigation a:last-child{
+    padding-right: 0;
+  }
+  .navigation a li{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+  }
+</style>

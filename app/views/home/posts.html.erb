@@ -1,0 +1,169 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+
+<br><br>
+<div class="Instagram-card">
+  <div class="Instagram-card-header">
+    <%= image_tag(@user.dp, class: "Instagram-card-user-image")%>
+    <a class="Instagram-card-user-name" href="<%= profile_path(@user.username) %>"> <%= @user.username %> </a>
+    <div class="Instagram-card-time">
+      <% diff = Time.now - @post.created_at.in_time_zone("Chennai") %>
+      <% if (diff/60) == 0 %>
+        <%= (diff).to_i %> secs
+      <% elsif (diff/60) < 2 %>
+          <%= (diff/60).to_i %> min
+      <% elsif (diff/60) < 60 %>
+        <%= (diff/60).to_i %> mins
+      <% elsif (diff/3600) < 2 %>
+        <%= (diff/3600).to_i %> hour
+      <% elsif (diff/3600) < 24 %>
+        <%= (diff/3600).to_i %> hours
+      <% else %>
+        <%= (diff/86400).to_i %> days
+      <% end %>
+    </div>
+  </div>
+
+  <div class="Instagram-card-image">
+    <%= image_tag(@post.image, style: 'width:600px;height:600px;crop:stretch;')%>
+  </div>
+
+  <div class="Instagram-card-content">
+    <table>
+      <tr>
+        <td width="45px">
+          <% if @temp.count == 0 %>
+            <a class="footer-action-icons"href="<%= like_path(@post) %>"><i class="fa fa-heart-o fa-2x"></i></a>
+          <% else %>
+            <a class="footer-action-icons"href="<%= unlike_path(@post) %>"><i class="fa fa-heart fa-2x" style="color:red;"></i></a>
+          <% end %>
+        </td>
+        <td>
+          <%= @likes.count %> likes
+        </td>
+      </tr>
+    </table>
+
+    <p><a class="Instagram-card-content-user" href="<%= profile_path(@user.username) %>"><%= @user.username %></a>
+    <%= @post.caption %></p><br>
+    <table>
+      <tr>
+        <td>
+          <form action="<%= comment_path(@post) %>" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input class="comments-input" type="text" name="comment[message]" placeholder="Add a comment..."/>
+            <input type="submit" class="submitbutton">
+          </form>
+        </td>
+      </tr>
+    </table>
+    <% @comments.each do |comment| %>
+      <% user = User.find(comment.user_id) %>
+      <p><a href="<%= profile_path(user.username) %>"><%= user.username %></a> <%= comment.message %></p>
+    <% end %>
+  </div>
+</div>
+<br>
+<br>
+<style media="screen">
+body{
+  background-color: #fafafa;
+  font-family: 'Droid Sans', sans-serif;
+}
+
+a{
+  text-decoration: none;
+}
+
+.submitbutton{
+  visibility: hidden;
+}
+.Instagram-card{
+  background: #ffffff;
+  border: 1px solid #f2f2f2;
+  border-radius: 3px;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.Instagram-card-header{
+  padding: 20px;
+  height: 40px;
+}
+
+.Instagram-card-user-image{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+
+.Instagram-card-time{
+  float: right;
+  width: 80px;
+  padding-top:10px;
+  text-align: right;
+  color: #999;
+}
+
+.Instagram-card-user-name{
+  margin-left:20px;
+  font-weight:bold;
+  color: #262626;
+}
+
+.Instagram-card-content{
+  padding: 20px;
+}
+
+.Likes{
+  font-weight: bold;
+}
+
+.Instagram-card-content-user{
+  font-weight: bold;
+  color: #262626;
+}
+
+.hashtag{
+  color: #003569;
+}
+
+.comments{
+  color:#999;
+}
+
+.user-comment{
+  color: #003569;
+}
+
+.Instagram-card-footer{
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+hr{
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+
+}
+
+
+.footer-action-icons{
+  font-size: 16px;
+  color: #ccc;
+}
+
+.comments-input{
+  border: none;
+  margin-left: 10px;
+  width: 100%;
+}
+</style>

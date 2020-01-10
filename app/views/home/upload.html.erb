@@ -1,0 +1,8 @@
+<%= form_for(@post, url: upload_post_path, html: { method: :post }) do |f| %>
+  <div class="post">
+    <p>Create a post</p><br />
+    <%= f.file_field :image %><br />
+    <%= f.text_area :caption %><br />
+    <%= f.submit 'Upload' %>
+  </div>
+<% end %>
