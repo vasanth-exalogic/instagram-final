@@ -41,7 +41,7 @@ class HomeController < ApplicationController
   end
 
   def find
-    @users = User.all
+    @users = User.all? { |e|  }
   end
 
   private
