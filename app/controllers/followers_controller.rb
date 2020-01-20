@@ -11,4 +11,8 @@ class FollowersController < ApplicationController
     follower.delete
     redirect_to profile_path(user.username)
   end
+
+
+    def trial
+    end
 end

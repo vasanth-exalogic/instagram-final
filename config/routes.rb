@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   post '/comment/:id' => 'comments#create', as: 'comment'
 
   get '/find/friends' => 'home#find', as:'find_friends'
+
+  get '/trial/1' => 'followers#trial'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
